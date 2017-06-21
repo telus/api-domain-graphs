@@ -1,0 +1,16 @@
+strict graph graphname {
+    // This attribute applies to the graph itself
+    size="500,500";
+    label="test label";
+
+    // The label attribute can be used to change the label of a node
+    a [label="fiz"];
+    // Here, the node shape is changed.
+    b [shape=box, label="buzz"];
+    // These edges both have different line properties
+    a -- b -- c [color=blue, label="bo"];
+    b -- d [style=dotted, color=red, label="biz"];
+    // [style=invis] hides a node.
+    c [label="bizzy"];
+    d [label="dizzle"];
+}
