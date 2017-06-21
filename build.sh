@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
-dot test.gv -Tpng >hello.png
-open hello.png
+
+for file in "."/*.gv;
+do
+    basefile=$(basename $file .gv);
+    dot $basefile.gv -Tpng >$basefile.png
+done;
+
