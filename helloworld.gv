@@ -1,16 +1,25 @@
-strict graph graphname {
+strict digraph graphname {
     // This attribute applies to the graph itself
     size="500,500";
     label="test label";
 
     // The label attribute can be used to change the label of a node
-    a [label="fiz"];
+    a [label="fiz", shape=egg];
     // Here, the node shape is changed.
-    b [shape=box, label="buzz"];
+    b [shape=box3d, label="buzz"];
     // These edges both have different line properties
-    a -- b -- c [color=blue, label="bo"];
-    b -- d [style=dotted, color=red, label="biz"];
+    a -> b -> c [color=blue];
+    a -> b [label="ab"];
+    b -> c [label="bc"];
+    b -> d [style=dotted, color=red, label="bizz"];
     // [style=invis] hides a node.
-    c [label="bizzy"];
-    d [label="dizzle"];
+    subgraph cluster_bidiz {
+        rank = same; c; d;
+        label="subtitle";
+        c [label="bizzy", shape=cylinder];
+        d [label="dizzle"];
+    }
+    subgraph cluster_structs {
+        1 [label="a |{ b |{c| d|e}| f}| g | h",shape="record"];
+    }
 }
