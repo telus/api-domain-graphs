@@ -1,0 +1,31 @@
+strict digraph graphname {
+    label="Salesforce Integration Paths";
+
+    UI [shape=box3d];
+    BFF [shape=box3d];
+
+    UI -> BFF [color=black];
+    BFF -> "API Wrapper" [color=black];
+    "API Wrapper" -> "AuthLayer" -> "Salesforce" [color=blue];
+    "API Wrapper" -> AuthProxy -> "SDF" -> "SFDC" -> "Salesforce" [color=green];
+
+    UI -> "Salesforce" [label="UI Injection", style=dotted, color=black];
+
+    subgraph cluster_API_Team {
+        label="";
+        AuthProxy [shape=box3d];
+        "AuthLayer" [shape=box3d];
+        "API Wrapper" [shape=box3d];
+    }
+
+    subgraph cluster_salesforce {
+        label="";
+        "Salesforce" [shape=cylinder];
+    }
+
+    subgraph cluster_SDF_Layer {
+        label="";
+        "SDF"  [shape=box3d];
+        "SFDC" [shape=box3d];
+    }
+}
