@@ -12,8 +12,15 @@ Change the graph source, run the build, update slides with the new images.
   brew install graphviz
 ```
 
-### Run the build
+### Vector build
 
 ```bash
-  ./build.sh
+  ./svg_build.sh
 ```
+
+### Raster build
+
+```bash
+  ./png_build.sh
+```
+
