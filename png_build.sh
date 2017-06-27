@@ -3,6 +3,6 @@
 for file in "."/*.gv;
 do
     basefile=$(basename $file .gv);
-    dot $basefile.gv -Teps >$basefile.eps
+    dot $basefile.gv -Tpng >$basefile.png
 done;
 
