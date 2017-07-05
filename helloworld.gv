@@ -1,10 +1,10 @@
 strict digraph graphname {
     // This attribute applies to the graph itself
-    size="500,500";
+    size="10";
     label="test label 1";
 
     // The label attribute can be used to change the label of a node
-    a [label="fiz", shape=egg];
+    //a [label="fiz", image="helloworld.svg", imagescale=true, shape=none];
     // Here, the node shape is changed.
     b [shape=box3d, label="buzz"];
     // These edges both have different line properties
