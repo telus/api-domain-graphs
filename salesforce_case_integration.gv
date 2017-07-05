@@ -1,31 +1,45 @@
 strict digraph graphname {
-    label="Salesforce Integration Paths";
+    label="fig. Telus B2B Salesforce Integration Domains";
+    rankdir=TB;
 
-    UI [shape=box3d];
-    BFF [shape=box3d];
-
-    UI -> BFF [color=black];
-    BFF -> "API Wrapper" [color=black];
-    "API Wrapper" -> "AuthLayer" -> "Salesforce" [color=blue];
-    "API Wrapper" -> AuthProxy -> "SDF" -> "SFDC" -> "Salesforce" [color=green];
-
-    UI -> "Salesforce" [label="UI Injection", style=dotted, color=black];
-
-    subgraph cluster_API_Team {
-        label="";
-        AuthProxy [shape=box3d];
-        "AuthLayer" [shape=box3d];
-        "API Wrapper" [shape=box3d];
+    subgraph cluster_UI_Domain {
+        label="Experience Domain";
+        ui [label="UI", shape=box3d];
+        bff [label="BFF", shape=box3d];
     }
 
-    subgraph cluster_salesforce {
-        label="";
-        "Salesforce" [shape=cylinder];
+    subgraph cluster_API_Domain {
+        label="API Domain";
+        proxy [label="AuthProxy", shape=box3d];
+        layer [label="AuthLayer", shape=box3d];
+        // Needs endpoint "session" mgmt for the dynamic Salesforce endpoint.
+        api [label="API Wrapper", shape=box3d];
     }
 
-    subgraph cluster_SDF_Layer {
-        label="";
-        "SDF"  [shape=box3d];
-        "SFDC" [shape=box3d];
+    subgraph cluster_SSO_Domain {
+        label="SSO Domain";
+        sdf [label="SDF",  shape=box3d];
+        pingfed [label="Client ID", shape=box3d];
+
+        subgraph cluster_salesforce {
+            label="SFDC";
+            force [label="Salesforce BSE", shape=cylinder];
+            b2b [label="B2B CRM Service", shape=box3d];
+        }
     }
+
+    ui -> bff [color=black];
+    bff -> api [color=black];
+
+    api -> layer [color=blue];
+    layer -> force [color=blue];
+    api -> b2b [color=green];
+    b2b -> force [color=green];
+    api -> proxy [style=dotted, color=green];
+    proxy -> sdf [style=dotted, color=green];
+    sdf -> b2b [style=dotted, color=green];
+
+    sdf -> pingfed
+    layer -> pingfed
+    pingfed -> force
 }
