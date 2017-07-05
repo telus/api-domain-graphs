@@ -1,0 +1,88 @@
+strict digraph graphname {
+
+    label="fig. Telus Commerce Domain Entities";
+    rankdir=TB;
+
+    subgraph cluster_product {
+        label="Catalogue Domain";
+        prod [label="Store", shape=box3d, color=blue];
+        serv [label="Services", shape=box3d, color=blue];
+        add [label="Add-ons", shape=box3d, color=blue];
+        acc [label="Accessories", shape=box3d, color=blue];
+        prd [label="Products", shape=box3d, color=blue];
+    }
+
+    prd -> prod [color=blue];
+    
+    subgraph cluster_offers {
+        label="Compact Domain";
+
+        //fin  [label="Financing", shape=box3d, color=blue];
+
+        rules [label="Constraints", shape=box3d, color=green];
+        // Constraints include:
+        // credit check
+        // regions available
+        // etc...
+
+        offer [label="Offers", shape=box3d, color=green];
+    }
+
+    subgraph cluster_checkout {
+        label="Checkout Domain";
+        // example: pick phone number
+        // provisioning config
+        cart  [label="Carts",  shape=box3d];
+        order [label="Orders", shape=box3d];
+        prov  [label="Provisioning", shape=box3d];
+        // prov.feasibility
+    }
+
+    order -> prov
+    prov -> cust
+    order -> cust
+
+    /*
+    session [label="Sessions", shape=box3d];
+    session -> order;
+    session -> cart;
+    /**/
+    
+    subgraph cluster_consumer {
+        label="Client Domain"
+        cust[label="Customers",shape=box3d, color=red];
+        not_cust[label="Prospects",shape=box3d, color=red];
+        seg [label="Segments", shape=box3d, color=red];
+        bill [label="Billing", shape=box3d, color=red];
+        // authenticated state? <- cust or not_cust -- unauthenticated users are essentially prospects
+        // credit check state? <- cust and not_cust -- works for both, and has one for HS and one for MOB.
+    }
+    
+    not_cust -> cust [color=red];
+    cust -> not_cust [color=red];
+    seg -> cust [color=red];
+    seg -> not_cust [color=red];
+    bill -> cust [color=red];
+
+    rules -> offer [color=green];
+    //rules -> serv [color=green];
+
+    prod -> offer [color=blue];
+    serv -> prod [color=blue];
+    //fin -> offer [color=blue];
+    acc -> prod [color=blue];
+    add -> serv [color=blue];
+    add -> prod [color=blue];
+
+    offer -> cart [color=green];
+
+    cart -> order;
+
+    cust -> offer [color=red];
+    cust -> cart [color=red];
+    cust -> order [color=red];
+
+    not_cust -> offer [color=red];
+    not_cust -> cart [color=red];
+    not_cust -> order [color=red];
+}
