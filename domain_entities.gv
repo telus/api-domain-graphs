@@ -5,7 +5,7 @@ strict digraph graphname {
 
     subgraph cluster_product {
         label="Catalogue Domain";
-        prod [label="Store", shape=box3d, color=blue];
+        prod [label="Assortment", shape=box3d, color=blue];
         serv [label="Services", shape=box3d, color=blue];
         add [label="Add-ons", shape=box3d, color=blue];
         acc [label="Accessories", shape=box3d, color=blue];
@@ -52,6 +52,13 @@ strict digraph graphname {
         label="Client Domain"
         cust[label="Customers",shape=box3d, color=red];
         not_cust[label="Prospects",shape=box3d, color=red];
+        // Party?
+        // Identity?
+        // Organization?
+        // Qualified?
+        // Unqualified?
+        // Commercial/Consumer?
+        // 
         seg [label="Segments", shape=box3d, color=red];
         bill [label="Billing", shape=box3d, color=red];
         // authenticated state? <- cust or not_cust -- unauthenticated users are essentially prospects
